@@ -37,6 +37,24 @@ dependencies:
   flutter_walkthrough_screen: ^2.0.2
   flutter_svg: ^1.0.3
   date_picker_timeline: ^1.2.3
+  cloud_firestore: ^3.1.11
+  firebase_auth: ^3.3.14
+  firebase_core: ^1.14.1
+  card_swiper: ^2.0.3
+  shared_preferences: ^2.0.11
+  sqflite: ^2.0.2+1
+  path: ^1.8.0
+  flutter_staggered_grid_view: ^0.4.0
+  intl: ^0.17.0
+  skeleton_text: ^3.0.0
+  flutter_shimmer: ^2.1.2
+  fl_chart: ^0.50.6
+  syncfusion_flutter_charts: ^19.1.54
+  http: ^0.13.4
+  fluttertoast: ^8.0.9
+  
+  
+  
  
   
 
@@ -66,7 +84,7 @@ flutter:
   # To add assets to your application, add an assets section, like this:
   assets:
     - images/University-Students-Illustration.jpg
-    - images/Online-Language-Course-Illustration.jpg
+    - images/onboardpic2.jpg
     - images/onboardpic.jpg
     - images/undraw_social_sharing_re_pvmr.svg
     - images/loginpic.jpg
@@ -77,6 +95,16 @@ flutter:
     - images/pngtree.jpg
     - images/illus1.png
     - images/kurukafa.jpg
+    - veritabani/animals.db
+    - images/dog.jpg
+    - images/cat.jpg
+    - images/lion.jpg
+    - images/snake.jpg
+    - images/placeholder.png
+    - images/swip1.jpeg
+    - images/swip2.jpeg
+    - images/swip3.jpeg
+    
 
   # An image asset can refer to o
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_walkthrough_screen/flutter_walkthrough_screen.dart';
 import 'package:intro2/loginpages/login.dart';
-import 'package:intro2/bottompages/main.dart';
+import 'package:intro2/main.dart';
 
 class OnBoardScreen extends StatelessWidget {
   final List<OnbordingData> list = [
@@ -27,7 +27,7 @@ class OnBoardScreen extends StatelessWidget {
       ),
     ),
     OnbordingData(
-      image: AssetImage("images/Online-Language-Course-Illustration.jpg"),
+      image: AssetImage("images/onboardpic2.jpg"),
       titleText: Text(
         "PREMİUM'U KEŞFEDİN !",
         style: TextStyle(fontFamily: 'Comfortaa'),

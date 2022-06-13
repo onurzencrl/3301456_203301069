@@ -2,13 +2,22 @@ import 'package:flutter/material.dart';
 import 'package:flutter_walkthrough_screen/flutter_walkthrough_screen.dart';
 import 'package:intro2/bottompages/home.dart';
 import 'package:intro2/details/language.dart';
+import 'package:intro2/details/options.dart';
+import 'package:intro2/details/vocabulary.dart';
 import 'package:intro2/loginpages/login.dart';
 import 'package:intro2/loginpages/onboard.dart';
 import 'package:intro2/bottompages/profil.dart';
 import 'package:intro2/cards/profilkarti.dart';
 import 'package:intro2/bottompages/tasks.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:intro2/loginpages/signup.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
+
   runApp(const MyApp());
 }
 
@@ -36,13 +45,31 @@ class AnaSayfa extends StatefulWidget {
 }
 
 class _AnaSayfaState extends State<AnaSayfa> {
+  String? sKullaniciAdi;
+  String? sEmail;
+
+  Future<void> readLogin() async {
+    var sp = await SharedPreferences.getInstance();
+
+    setState(() {
+      sKullaniciAdi = sp.getString("name") ?? "Kullanici Adi Yok.";
+      sEmail = sp.getString("email") ?? "şifre yok ";
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    readLogin();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: Colors.black),
         title: Text(
-          'Merhaba 10Z',
+          "Hi  $sKullaniciAdi",
           style: TextStyle(
               fontSize: 20.0,
               fontFamily: 'Comfortaa',
@@ -60,7 +87,7 @@ class _AnaSayfaState extends State<AnaSayfa> {
               arrowColor: Color(0xFF363f93),
               accountName: Text("Onur Zencirli"),
               accountEmail: Text(
-                "onurzencirli@gmail.com",
+                "$sEmail",
                 style: TextStyle(
                   fontFamily: 'Comfortaa',
                 ),
@@ -94,22 +121,28 @@ class _AnaSayfaState extends State<AnaSayfa> {
             ),
             ListTile(
               title: Text(
-                "Settings",
+                "AnimasyonTest",
                 style: TextStyle(
                   color: Colors.white,
                   fontFamily: 'Comfortaa',
                 ),
               ),
-              onTap: () {},
-            ),
-            ListTile(
-              title: Text("Çıkış Yap",
-                  style:
-                      TextStyle(color: Colors.white, fontFamily: 'Comfortaa')),
               onTap: () {
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => LoginPage()));
+                    MaterialPageRoute(builder: (context) => Animasyon()));
               },
+            ),
+            ListTile(
+              title: GestureDetector(
+                onSecondaryTap: () {
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => LoginPage()));
+                },
+                child: Text("Çıkış Yap",
+                    style: TextStyle(
+                        color: Colors.white, fontFamily: 'Comfortaa')),
+              ),
+              onTap: () {},
             ),
           ],
         ),
@@ -181,7 +214,13 @@ class _AnaSayfaState extends State<AnaSayfa> {
             },
             child: profilKarti(metinim: ' Reading'),
           ),
-          profilKarti(metinim: 'Speaking'),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context, MaterialPageRoute(builder: (context) => Kelime()));
+            },
+            child: profilKarti(metinim: ' Vocabulary'),
+          ),
           profilKarti(metinim: 'Writing')
         ],
       ),

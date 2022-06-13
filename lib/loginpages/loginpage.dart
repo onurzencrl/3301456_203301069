@@ -1,6 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intro2/bottompages/home.dart';
 import 'package:intro2/loginpages/signup.dart';
+import 'package:intro2/services/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class LoginPage2 extends StatefulWidget {
   const LoginPage2({Key? key}) : super(key: key);
@@ -13,8 +17,10 @@ class _LoginPage2State extends State<LoginPage2> {
   var username;
   var password;
   final _formKey = GlobalKey<FormState>();
-  final nameCon = new TextEditingController();
   final emailCon = new TextEditingController();
+  final nameCon = new TextEditingController();
+
+  AuthService _authService = AuthService();
 
   @override
   Widget build(BuildContext context) {
@@ -33,7 +39,7 @@ class _LoginPage2State extends State<LoginPage2> {
                         image: AssetImage('images/loginpic2.jpg'))),
               ),
               TextFormField(
-                controller: nameCon,
+                controller: emailCon,
                 validator: (deger) {
                   if (deger!.isEmpty) {
                     return 'Bu alan boş bırakılamaz.';
@@ -45,7 +51,7 @@ class _LoginPage2State extends State<LoginPage2> {
                   username = value;
                 },
                 decoration: InputDecoration(
-                    labelText: 'Kullanıcı Adı',
+                    labelText: 'Email Adresi',
                     focusedBorder: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(12.0),
                       borderSide: BorderSide(
@@ -58,7 +64,7 @@ class _LoginPage2State extends State<LoginPage2> {
                 height: 20,
               ),
               TextFormField(
-                controller: emailCon,
+                controller: nameCon,
                 obscureText: true,
                 validator: (deger) {
                   if (deger!.isEmpty) {
@@ -105,20 +111,27 @@ class _LoginPage2State extends State<LoginPage2> {
                   minimumSize: Size(280, 40),
                 ),
                 onPressed: () {
+                  _authService
+                      .signIn(emailCon.text, nameCon.text)
+                      .then((value) {
+                    if (value != null) {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => MyHomePage()));
+                    } else {
+                      message("Kullanıcı adı veya şifre hatalı...");
+                    }
+                  });
+
                   if (_formKey.currentState!.validate()) {
                     _formKey.currentState!.save();
+                  } else {
+                    return null;
                   }
 
                   username = nameCon.text;
                   password = emailCon.text;
-
-                  if (username == '10z' && password == '123456') {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => MyHomePage()));
-                  } else {
-                    return null;
-                  }
-                  ;
                 },
                 child: Text('LOGİN'),
               ),
@@ -133,4 +146,15 @@ class _LoginPage2State extends State<LoginPage2> {
         child: Text('Giriş Yap'),
         onPressed: () {},
       );
+
+  void message(String text) {
+    Fluttertoast.showToast(
+        msg: text,
+        toastLength: Toast.LENGTH_SHORT,
+        gravity: ToastGravity.BOTTOM,
+        timeInSecForIosWeb: 1,
+        backgroundColor: Colors.black38,
+        textColor: Colors.white,
+        fontSize: 16.0);
+  }
 }

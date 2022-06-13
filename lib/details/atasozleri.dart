@@ -3,3 +3,9 @@ List<String> metinler = [
   "Three men came to New York for a holiday. They came to a very large hotel and took a room there. Their room was on the forty-fifth floor. In the evening friends went to the theatre and came back to the hotel very late.",
   "Neil loves to travel and he was so fond of forests. Whenever he plans for a holiday, he would choose a place that is blessed by Mother Nature. To celebrate his son’s second birthday, he decided to stay and enjoy the celebration in the woods, located at the lap of a mountain. He with his family and friends reached the village located near the woods and had his stay in the cottage. The cottage was located at the entrance of the dense forest, where the guests can view animals roaming in the nearby place."
 ];
+
+List<String> cumleler = [
+  "A sentence follows Subject + Verb + Object word order. \n He (subject) obtained (verb) his degree (object).",
+  "A sentence must have a complete idea that stands alone. This is also called an independent clause. \n He obtained his degree."
+      "A sentence ends with punctuation (a period, a question mark, or an exclamation point).He obtained his degree."
+];

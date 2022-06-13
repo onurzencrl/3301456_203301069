@@ -11,9 +11,10 @@ class Gorevlerim extends StatefulWidget {
 
 class _GorevlerimState extends State<Gorevlerim> {
   DatePickerController _controller = DatePickerController();
-  late String texttim = ' ';
+  late String texttim = '2 İngilizce metin oku. ';
 
   DateTime _selectedValue = DateTime.now();
+  Color color = Colors.white;
 
   @override
   Widget build(BuildContext context) {
@@ -102,20 +103,51 @@ class _GorevlerimState extends State<Gorevlerim> {
                           ),
                         ],
                       ),
-                      Container(
-                        child: Padding(
-                          padding: const EdgeInsets.only(left: 8.0, top: 8.0),
-                          child: Text(
-                            texttim,
-                            style: TextStyle(
-                                fontSize: 14.0, fontFamily: 'Comfortaa'),
+                      GestureDetector(
+                        onHorizontalDragStart: (DragStartDetails details) {
+                          setState(() {
+                            color:
+                            Colors.pink[100];
+                          });
+                        },
+                        onHorizontalDragEnd: (DragEndDetails details) {
+                          setState(() {
+                            color:
+                            Colors.amber;
+                          });
+                        },
+                        child: Container(
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8.0, top: 8.0),
+                            child: GestureDetector(
+                              onHorizontalDragStart:
+                                  (DragStartDetails details) {
+                                setState(() {
+                                  color:
+                                  Colors.pink[100];
+                                });
+                              },
+                              onHorizontalDragEnd: (DragEndDetails details) {
+                                setState(() {
+                                  color:
+                                  Colors.amber;
+                                });
+                              },
+                              child: Text(
+                                texttim,
+                                style: TextStyle(
+                                    fontSize: 14.0,
+                                    color: color,
+                                    fontFamily: 'Comfortaa'),
+                              ),
+                            ),
                           ),
-                        ),
-                        width: 280,
-                        height: 80,
-                        decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 196, 212, 218),
-                          borderRadius: BorderRadius.circular(15),
+                          width: 280,
+                          height: 80,
+                          decoration: BoxDecoration(
+                            color: Colors.pink[100],
+                            borderRadius: BorderRadius.circular(15),
+                          ),
                         ),
                       ),
                     ],
@@ -177,7 +209,7 @@ class _GorevlerimState extends State<Gorevlerim> {
                         width: 280,
                         height: 80,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 196, 212, 218),
+                          color: Color.fromARGB(255, 120, 190, 124),
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
@@ -240,7 +272,7 @@ class _GorevlerimState extends State<Gorevlerim> {
                         width: 280,
                         height: 80,
                         decoration: BoxDecoration(
-                          color: Color.fromARGB(255, 196, 212, 218),
+                          color: Color.fromARGB(255, 219, 208, 102),
                           borderRadius: BorderRadius.circular(15),
                         ),
                       ),
@@ -312,7 +344,7 @@ class _GorevlerimState extends State<Gorevlerim> {
                 ),
               ],
             ),
-          )
+          ),
         ],
       ),
     ));

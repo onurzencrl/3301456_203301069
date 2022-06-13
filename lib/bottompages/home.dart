@@ -1,7 +1,7 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
-import 'package:intro2/bottompages/main.dart';
+import 'package:intro2/bottompages/notespage.dart';
+import 'package:intro2/loginpages/login.dart';
+import 'package:intro2/main.dart';
 import 'package:intro2/bottompages/profil.dart';
 import 'package:intro2/cards/profilkarti.dart';
 import 'package:intro2/bottompages/tasks.dart';
@@ -15,7 +15,7 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _aktifIcerikNo = 0;
-  List<Widget> _icerikler = [AnaSayfa(), Gorevlerim(), Profilim()];
+  List<Widget> _icerikler = [AnaSayfa(), NotesPage(), Gorevlerim(), Profilim()];
 
   @override
   Widget build(BuildContext context) {
@@ -27,6 +27,7 @@ class _MyHomePageState extends State<MyHomePage> {
         unselectedItemColor: Colors.grey,
         items: [
           BottomNavigationBarItem(icon: Icon(Icons.home), label: 'Home'),
+          BottomNavigationBarItem(icon: Icon(Icons.note), label: 'MyNotes'),
           BottomNavigationBarItem(icon: Icon(Icons.task), label: 'Tasks'),
           BottomNavigationBarItem(icon: Icon(Icons.person), label: 'Profil'),
         ],

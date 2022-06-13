@@ -1,33 +1,42 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_shimmer/flutter_shimmer.dart';
 import 'package:intro2/cards/egitim.dart';
 import 'package:intro2/cards/kucukegitim.dart';
 import 'atasozleri.dart';
 
 class DilIcerigi extends StatefulWidget {
-  const DilIcerigi({Key? key}) : super(key: key);
+  const DilIcerigi({Key? key, this.title}) : super(key: key);
+
+  final String? title;
 
   @override
   State<DilIcerigi> createState() => _DilIcerigiState();
 }
 
 class _DilIcerigiState extends State<DilIcerigi> {
+  late bool _isLoading;
+
+  @override
+  void initState() {
+    _isLoading = true;
+    Future.delayed(const Duration(seconds: 2), () {
+      setState(() {
+        _isLoading = false;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Reading'),
         iconTheme: IconThemeData(color: Colors.black),
-        title: Text(
-          'Merhaba 10Z',
-          style: TextStyle(
-              fontFamily: 'Comfortaa',
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Color(0xFF363f93)),
-        ),
         elevation: 0.0,
         backgroundColor: Color.fromARGB(240, 245, 245, 245),
       ),
-      body: ListView(children: [
+      body: ListView(children: <Widget>[
         Padding(
           padding: const EdgeInsets.only(top: 14.0, left: 14.0, bottom: 14.0),
           child: Text(
@@ -43,15 +52,23 @@ class _DilIcerigiState extends State<DilIcerigi> {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
+              _isLoading
+                  ? ListTileShimmer(
+                      bgColor: Color.fromARGB(255, 228, 224, 224),
+                      height: 20,
+                    )
+                  : DersKarti(
+                      metinnn: cumleler[0],
+                      dersno3: 'Ders 01',
+                      resim3: 'images/kurukafa.jpg',
+                    ),
               DersKarti(
-                dersno3: 'Ders 01',
-                resim3: 'images/kurukafa.jpg',
-              ),
-              DersKarti(
+                metinnn: cumleler[1],
                 dersno3: 'Ders 02',
                 resim3: 'images/kurukafa.jpg',
               ),
               DersKarti(
+                metinnn: cumleler[1],
                 dersno3: 'Ders 03',
                 resim3: 'images/kurukafa.jpg',
               )
@@ -73,15 +90,20 @@ class _DilIcerigiState extends State<DilIcerigi> {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              Hero(
-                tag: metinler,
-                child: KucukDersKarti(
-                  dersNo: "Ders 01 ",
-                  resim2: 'images/a1a2pic.jpg',
-                  metin: metinler[0],
-                  metin2: 'Araba Tamir metni.',
-                ),
-              ),
+              _isLoading
+                  ? ListTileShimmer(
+                      bgColor: Color.fromARGB(255, 228, 224, 224),
+                      height: 20,
+                    )
+                  : Hero(
+                      tag: metinler,
+                      child: KucukDersKarti(
+                        dersNo: "Ders 01 ",
+                        resim2: 'images/a1a2pic.jpg',
+                        metin: metinler[0],
+                        metin2: 'Araba Tamir metni.',
+                      ),
+                    ),
               KucukDersKarti(
                 dersNo: "Ders 02",
                 resim2: 'images/a1a2pic.jpg',
@@ -112,12 +134,17 @@ class _DilIcerigiState extends State<DilIcerigi> {
           child: ListView(
             scrollDirection: Axis.horizontal,
             children: [
-              KucukDersKarti(
-                dersNo: 'Ders 01',
-                resim2: 'images/b1b2pic.jpg',
-                metin: metinler[0],
-                metin2: 'İnternet bağlatma metini',
-              ),
+              _isLoading
+                  ? ListTileShimmer(
+                      bgColor: Color.fromARGB(255, 228, 224, 224),
+                      height: 20,
+                    )
+                  : KucukDersKarti(
+                      dersNo: 'Ders 01',
+                      resim2: 'images/b1b2pic.jpg',
+                      metin: metinler[0],
+                      metin2: 'İnternet bağlatma metini',
+                    ),
               KucukDersKarti(
                 dersNo: 'Ders 02',
                 resim2: 'images/b1b2pic.jpg',

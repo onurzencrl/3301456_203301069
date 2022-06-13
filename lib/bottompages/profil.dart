@@ -5,6 +5,29 @@ class Profilim extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Color color = Colors.amber;
+    void _showDialog(BuildContext context) {
+      // flutter defined function
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          // return object of type Dialog
+          return AlertDialog(
+            title: new Text("Message"),
+            content: new Text("Hello World"),
+            actions: <Widget>[
+              new FlatButton(
+                child: new Text("Close"),
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+
     return Scaffold(
       body: ListView(
         children: [
@@ -26,7 +49,7 @@ class Profilim extends StatelessWidget {
                         bottomRight: Radius.circular(30))),
               ),
               Positioned(
-                left: 160,
+                left: MediaQuery.of(context).size.width * 0.5 - 40,
                 top: 310,
                 child: Container(
                   width: 80,
@@ -35,8 +58,7 @@ class Profilim extends StatelessWidget {
                       border: Border.all(width: 2, color: Colors.black),
                       image: DecorationImage(
                           fit: BoxFit.cover,
-                          image: AssetImage(
-                              'images/Online-Language-Course-Illustration.jpg')),
+                          image: AssetImage('images/profilpic.jpg')),
                       color: Color(0xFF363f93),
                       borderRadius: BorderRadius.circular(60.0)),
                 ),
@@ -60,7 +82,14 @@ class Profilim extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              IconButton(onPressed: null, icon: Icon(Icons.facebook)),
+              GestureDetector(
+                  onTap: () {
+                    _showDialog(context);
+                  },
+                  child: IconButton(
+                      onPressed: null,
+                      color: color,
+                      icon: Icon(Icons.facebook))),
               IconButton(onPressed: null, icon: Icon(Icons.facebook)),
               IconButton(onPressed: null, icon: Icon(Icons.facebook))
             ],
@@ -84,12 +113,17 @@ class Profilim extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
             child: Center(
-              child: Text(
-                'Premium Üye*',
-                style: TextStyle(color: Colors.amber),
+              child: GestureDetector(
+                onTap: () {
+                  color = Colors.red;
+                },
+                child: Text(
+                  'Premium Üye*',
+                  style: TextStyle(color: color),
+                ),
               ),
             ),
-          )
+          ),
         ],
       ),
     );

@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:intro2/loginpages/login.dart';
+import 'package:intro2/loginpages/loginpage.dart';
+import 'package:intro2/services/auth.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({Key? key}) : super(key: key);
@@ -9,6 +12,14 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _passwordagainController =
+      TextEditingController();
+
+  AuthService _authService = AuthService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -19,6 +30,7 @@ class _SignUpState extends State<SignUp> {
           child: Column(
             children: [
               TextFormField(
+                controller: _nameController,
                 decoration: InputDecoration(
                     labelText: 'Kullanıcı Adınızı Giriniz',
                     focusedBorder: OutlineInputBorder(
@@ -29,7 +41,7 @@ class _SignUpState extends State<SignUp> {
                     border: OutlineInputBorder()),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'E-mail Adresinizi Giriniz';
+                    return 'Kullanıcı Adını Adresinizi Giriniz';
                   } else {
                     return null;
                   }
@@ -39,6 +51,7 @@ class _SignUpState extends State<SignUp> {
                 height: 30.0,
               ),
               TextFormField(
+                controller: _emailController,
                 decoration: InputDecoration(
                     labelText: 'E-mail Adresinizi Giriniz',
                     focusedBorder: OutlineInputBorder(
@@ -49,7 +62,7 @@ class _SignUpState extends State<SignUp> {
                     border: OutlineInputBorder()),
                 validator: (value) {
                   if (value!.isEmpty) {
-                    return 'Şifrenizi Giriniz';
+                    return 'E-mail adresinizi Giriniz';
                   } else {
                     return null;
                   }
@@ -59,6 +72,7 @@ class _SignUpState extends State<SignUp> {
                 height: 30.0,
               ),
               TextFormField(
+                controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
                     labelText: 'Şifrenizi Giriniz',
@@ -80,6 +94,7 @@ class _SignUpState extends State<SignUp> {
                 height: 30.0,
               ),
               TextFormField(
+                controller: _passwordagainController,
                 obscureText: true,
                 decoration: InputDecoration(
                     labelText: 'Şifrenizi Giriniz',
@@ -98,10 +113,20 @@ class _SignUpState extends State<SignUp> {
                 },
               ),
               ElevatedButton(
-                onPressed: () {
-                  AlertDialog(
-                    title: Text('Kayıt Başarılı!'),
-                  );
+                onPressed: () async {
+                  final SharedPreferences sharedPreferences =
+                      await SharedPreferences.getInstance();
+                  sharedPreferences.setString('name', _nameController.text);
+                  sharedPreferences.setString('email', _emailController.text);
+
+
+                  _authService
+                      .createPerson(_nameController.text, _emailController.text,
+                          _passwordController.text)
+                      .then((value) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => LoginPage2()));
+                  });
                 },
                 child: Text('Kayıt Ol'),
               ),

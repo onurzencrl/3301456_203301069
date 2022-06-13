@@ -3,6 +3,7 @@ import 'package:intro2/details/language.dart';
 
 class profilKarti extends StatelessWidget {
   final String metinim;
+  
 
   const profilKarti({Key? key, required this.metinim}) : super(key: key);
 
